@@ -23,19 +23,21 @@ func _ready() -> void:
 	for network in networks:
 		network.queue_free()
 	
-	#wlan_api.fetch_network_data()
+	refresh(false)
 
 
-func refresh() -> void:
+func refresh(run_timer: bool) -> void:
 	wlan_api.scan_networks()
-	refresh_timer.start()
-	await refresh_timer.timeout
+	
+	if run_timer:
+		refresh_timer.start()
+		await refresh_timer.timeout
+	
 	wlan_api.refresh_network_data()
 
 
 func _on_wlan_api_network_data_fetched() -> void:
 	var networks := wlan_api.get_networks() as Dictionary
-	var ssids := networks.keys()
 	
 	for net_ssid: String in networks:
 		var network: WiFiNetwork = networks[net_ssid]
@@ -67,4 +69,4 @@ func _on_task_panel_refresh_requested() -> void:
 	for network in networks:
 		network.queue_free()
 	
-	refresh()
+	refresh(false)
