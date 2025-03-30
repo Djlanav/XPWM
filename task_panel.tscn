@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwn24ve2vleu"]
+[gd_scene load_steps=11 format=3 uid="uid://cwn24ve2vleu"]
 
+[ext_resource type="Script" uid="uid://jlxc2njt7exi" path="res://Scripts/network_tasks_panel.gd" id="1_mmt3q"]
 [ext_resource type="Shader" uid="uid://cahl5dtldj3p8" path="res://Shaders/gradient.gdshader" id="1_vaxac"]
 [ext_resource type="Texture2D" uid="uid://cqhgpyticyyq2" path="res://Icons/sprb040D.dll_14_2020_1037-1.png" id="2_upojo"]
 [ext_resource type="Texture2D" uid="uid://dbkbmsd5gulae" path="res://Icons/sprb040D.dll_14_2026_1037-4.png" id="3_uds7w"]
@@ -38,6 +39,7 @@ subpixel_positioning = 0
 [node name="TaskPanel" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_mmt3q")
 
 [node name="Title" type="Panel" parent="."]
 material = SubResource("ShaderMaterial_upojo")
@@ -82,6 +84,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="RefreshLabel" type="RichTextLabel" parent="Refresh"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 28.0
 offset_right = 143.0
@@ -120,3 +123,6 @@ theme_override_fonts/normal_font = SubResource("SystemFont_uds7w")
 theme_override_font_sizes/normal_font_size = 11
 bbcode_enabled = true
 text = "Set up a wireless network for a home or small office"
+
+[connection signal="mouse_entered" from="Refresh/RefreshLabel" to="." method="_on_refresh_mouse_entered"]
+[connection signal="mouse_exited" from="Refresh/RefreshLabel" to="." method="_on_refresh_mouse_exited"]

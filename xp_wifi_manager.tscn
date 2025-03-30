@@ -65,6 +65,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_af6vm")
 
+[node name="RefreshTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [node name="WlanAPI" type="WlanAPI" parent="."]
 
 [node name="LeftBar" type="ColorRect" parent="."]
@@ -188,3 +192,4 @@ offset_bottom = 167.0
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="network_data_fetched" from="WlanAPI" to="." method="_on_wlan_api_network_data_fetched"]
+[connection signal="refresh_requested" from="TaskPanel" to="." method="_on_task_panel_refresh_requested"]
