@@ -1,0 +1,199 @@
+[gd_scene load_steps=18 format=3 uid="uid://f2v7aewr14nr"]
+
+[ext_resource type="Script" uid="uid://br34hnvdefdag" path="res://Scripts/xp_wifi_manager.gd" id="1_af6vm"]
+[ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="2_1gypj"]
+[ext_resource type="PackedScene" uid="uid://bhaepryhfj0y6" path="res://wifi_network.tscn" id="2_oev8w"]
+[ext_resource type="Shader" uid="uid://cahl5dtldj3p8" path="res://Shaders/gradient.gdshader" id="2_vbjf1"]
+[ext_resource type="StyleBox" uid="uid://c3wwn2voorsh" path="res://Styles/Buttons/xp_button.tres" id="3_1gypj"]
+[ext_resource type="StyleBox" uid="uid://bj1scb3fna1ku" path="res://Styles/Buttons/xp_button_pressed.tres" id="3_4rxgr"]
+[ext_resource type="PackedScene" uid="uid://cwn24ve2vleu" path="res://task_panel.tscn" id="6_ryx5k"]
+[ext_resource type="PackedScene" uid="uid://ydkgmuf2t84u" path="res://related_tasks.tscn" id="7_pgyp6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xyx7o"]
+shader = ExtResource("2_vbjf1")
+shader_parameter/top_color = Color(0.770548, 0.831494, 0.963489, 1)
+shader_parameter/bottom_color = Color(0.4, 0.537255, 0.866667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vbjf1"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_right = 3
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xyx7o"]
+bg_color = Color(0.92549, 0.913725, 0.847059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ryx5k"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0.235294, 0.454902, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 2
+shadow_color = Color(1, 0.45098, 0, 0.776471)
+shadow_size = 2
+anti_aliasing = false
+
+[sub_resource type="SystemFont" id="SystemFont_vbjf1"]
+font_names = PackedStringArray("Tahoma")
+font_weight = 550
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1gypj"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6, 0.611765, 0.584314, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_4rxgr"]
+font_names = PackedStringArray("Tahoma")
+
+[sub_resource type="LabelSettings" id="LabelSettings_4rxgr"]
+font = SubResource("SystemFont_4rxgr")
+font_size = 12
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oev8w"]
+bg_color = Color(0.8, 0.886275, 1, 1)
+
+[node name="XPWifiManager" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_af6vm")
+
+[node name="WlanAPI" type="WlanAPI" parent="."]
+
+[node name="LeftBar" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_xyx7o")
+layout_mode = 0
+offset_right = 226.0
+offset_bottom = 597.0
+
+[node name="BORDERPANEL" type="Panel" parent="LeftBar"]
+layout_mode = 0
+offset_right = 229.0
+offset_bottom = 597.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vbjf1")
+
+[node name="WifiList" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 229.0
+offset_right = 800.0
+offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xyx7o")
+
+[node name="NetworksContainer" type="VBoxContainer" parent="WifiList"]
+unique_name_in_owner = true
+z_index = 2
+custom_minimum_size = Vector2(278, 40)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 115.0
+offset_right = 527.0
+offset_bottom = 527.0
+theme_override_constants/separation = 0
+
+[node name="WifiNetwork" parent="WifiList/NetworksContainer" instance=ExtResource("2_oev8w")]
+z_index = 1
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="WifiNetwork2" parent="WifiList/NetworksContainer" instance=ExtResource("2_oev8w")]
+z_index = 1
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Connect" type="Button" parent="WifiList"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -135.0
+offset_top = -42.0
+offset_right = -45.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_1gypj")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/focus = ExtResource("3_1gypj")
+theme_override_styles/hover_pressed = ExtResource("3_4rxgr")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ryx5k")
+theme_override_styles/pressed = ExtResource("3_4rxgr")
+theme_override_styles/normal = ExtResource("3_1gypj")
+text = "Connect"
+
+[node name="Label" type="RichTextLabel" parent="WifiList"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 401.0
+offset_bottom = 45.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/bold_font = SubResource("SystemFont_vbjf1")
+bbcode_enabled = true
+text = "[b][font_size=24]Choose a wireless network"
+
+[node name="TitleLabel" type="Panel" parent="WifiList"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 115.0
+offset_right = 527.0
+offset_bottom = 527.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_1gypj")
+
+[node name="Label2" type="Label" parent="WifiList"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 528.0
+offset_bottom = 113.0
+text = "Click an item in the list below to connect to a wireless network in range or to get more information"
+label_settings = SubResource("LabelSettings_4rxgr")
+autowrap_mode = 2
+
+[node name="BottomPanel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -400.0
+offset_top = -3.0
+offset_right = 400.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_oev8w")
+
+[node name="TaskPanel" parent="." instance=ExtResource("6_ryx5k")]
+layout_mode = 1
+offset_left = 23.0
+offset_top = 17.0
+offset_right = -606.0
+offset_bottom = -423.0
+
+[node name="RelatedTasks" parent="." instance=ExtResource("7_pgyp6")]
+offset_left = 23.0
+offset_top = 167.0
+offset_right = 23.0
+offset_bottom = 167.0
+
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="network_data_fetched" from="WlanAPI" to="." method="_on_wlan_api_network_data_fetched"]

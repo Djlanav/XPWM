@@ -1,0 +1,122 @@
+[gd_scene load_steps=10 format=3 uid="uid://cwn24ve2vleu"]
+
+[ext_resource type="Shader" uid="uid://cahl5dtldj3p8" path="res://Shaders/gradient.gdshader" id="1_vaxac"]
+[ext_resource type="Texture2D" uid="uid://cqhgpyticyyq2" path="res://Icons/sprb040D.dll_14_2020_1037-1.png" id="2_upojo"]
+[ext_resource type="Texture2D" uid="uid://dbkbmsd5gulae" path="res://Icons/sprb040D.dll_14_2026_1037-4.png" id="3_uds7w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_upojo"]
+shader = ExtResource("1_vaxac")
+shader_parameter/top_color = Color(1, 1, 1, 1)
+shader_parameter/bottom_color = Color(0.584314, 0.741176, 0.894118, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uds7w"]
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+anti_aliasing = false
+
+[sub_resource type="SystemFont" id="SystemFont_vaxac"]
+font_names = PackedStringArray("Tahoma")
+font_weight = 575
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upojo"]
+bg_color = Color(0.701961, 0.815686, 0.92549, 1)
+border_width_left = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+anti_aliasing = false
+
+[sub_resource type="SystemFont" id="SystemFont_upojo"]
+font_names = PackedStringArray("Tahoma")
+subpixel_positioning = 0
+
+[sub_resource type="SystemFont" id="SystemFont_uds7w"]
+font_names = PackedStringArray("Tahoma")
+subpixel_positioning = 0
+
+[node name="TaskPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Title" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_upojo")
+layout_mode = 0
+offset_right = 169.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_uds7w")
+
+[node name="Label" type="RichTextLabel" parent="Title"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 3.0
+offset_right = 122.0
+offset_bottom = 21.0
+theme_override_colors/default_color = Color(0.129412, 0.352941, 0.807843, 1)
+theme_override_fonts/bold_font = SubResource("SystemFont_vaxac")
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "[b]Network Tasks"
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 169.0
+offset_bottom = 124.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_upojo")
+
+[node name="Refresh" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 36.0
+offset_right = 156.0
+offset_bottom = 55.0
+
+[node name="RefreshIcon" type="TextureRect" parent="Refresh"]
+layout_mode = 0
+offset_top = 1.0
+offset_right = 19.0
+offset_bottom = 17.0
+texture = ExtResource("2_upojo")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="RefreshLabel" type="RichTextLabel" parent="Refresh"]
+layout_mode = 0
+offset_left = 28.0
+offset_right = 143.0
+offset_bottom = 16.0
+theme_override_colors/default_color = Color(0.211765, 0.419608, 0.827451, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_upojo")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "Refresh network list"
+
+[node name="SetupWireless" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 80.0
+offset_right = 162.0
+offset_bottom = 114.0
+
+[node name="SetupWirelessIcon" type="TextureRect" parent="SetupWireless"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 24.0
+offset_bottom = 25.0
+texture = ExtResource("3_uds7w")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="SetupWirelessLabel" type="RichTextLabel" parent="SetupWireless"]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 2.0
+offset_right = 161.0
+offset_bottom = 36.0
+theme_override_colors/default_color = Color(0.145098, 0.364706, 0.811765, 1)
+theme_override_fonts/normal_font = SubResource("SystemFont_uds7w")
+theme_override_font_sizes/normal_font_size = 11
+bbcode_enabled = true
+text = "Set up a wireless network for a home or small office"

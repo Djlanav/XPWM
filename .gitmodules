@@ -1,0 +1,3 @@
+[submodule "xp_wireless_manager"]
+	path = xp_wireless_manager
+	url = https://github.com/Djlanav/xpwm-src
