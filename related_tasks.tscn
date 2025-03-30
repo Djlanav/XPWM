@@ -85,8 +85,8 @@ offset_right = 161.0
 offset_bottom = 72.0
 theme_override_colors/default_color = Color(0.133333, 0.356863, 0.807843, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_g5qsa")
-theme_override_font_sizes/normal_font_size = 10
-text = "Learn more about wireless networking"
+theme_override_font_sizes/normal_font_size = 11
+text = "Learn about wireless networking"
 
 [node name="PreferredOrder" type="Control" parent="."]
 anchors_preset = 0
@@ -112,7 +112,7 @@ offset_right = 161.0
 offset_bottom = 132.0
 theme_override_colors/default_color = Color(0.133333, 0.356863, 0.807843, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_g5qsa")
-theme_override_font_sizes/normal_font_size = 10
+theme_override_font_sizes/normal_font_size = 11
 text = "Change the order of preferred networks"
 
 [node name="AdvancedSettings" type="Control" parent="."]
@@ -135,11 +135,11 @@ stretch_mode = 5
 layout_mode = 0
 offset_left = 33.0
 offset_top = 145.0
-offset_right = 162.0
-offset_bottom = 161.0
+offset_right = 140.0
+offset_bottom = 174.0
 theme_override_colors/default_color = Color(0.133333, 0.356863, 0.807843, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_g5qsa")
 theme_override_font_sizes/normal_font_size = 11
 bbcode_enabled = true
-text = "[b][font_size=9]Change advanced settings
+text = "Change advanced settings
 "
