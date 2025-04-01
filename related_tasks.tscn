@@ -1,12 +1,12 @@
 [gd_scene load_steps=10 format=3 uid="uid://ydkgmuf2t84u"]
 
-[ext_resource type="Shader" uid="uid://cahl5dtldj3p8" path="res://Shaders/gradient.gdshader" id="1_pkvnw"]
+[ext_resource type="Shader" uid="uid://btgs8r3ipldd5" path="res://Shaders/task_panel.gdshader" id="1_j8sut"]
 [ext_resource type="Texture2D" uid="uid://ecydvw2n6w48" path="res://Icons/ahui.exe_14_2006-5.png" id="2_g5qsa"]
 [ext_resource type="Texture2D" uid="uid://bbn7rmmy1ai52" path="res://Icons/sprb040D.dll_14_2022_1037.png" id="3_aple1"]
 [ext_resource type="Texture2D" uid="uid://dqdcuvsve7hie" path="res://Icons/sprb040D.dll_14_2025_1037-1.png" id="4_j8sut"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5qsa"]
-shader = ExtResource("1_pkvnw")
+shader = ExtResource("1_j8sut")
 shader_parameter/top_color = Color(1, 1, 1, 1)
 shader_parameter/bottom_color = Color(0.584314, 0.741176, 0.894118, 1)
 

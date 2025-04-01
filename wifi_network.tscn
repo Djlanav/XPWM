@@ -1,20 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://bhaepryhfj0y6"]
+[gd_scene load_steps=13 format=3 uid="uid://bhaepryhfj0y6"]
 
 [ext_resource type="Shader" uid="uid://w6bintgwrf8q" path="res://Shaders/wifi_entry.gdshader" id="1_0plhg"]
 [ext_resource type="Script" uid="uid://iohrg3ebp0xy" path="res://Scripts/wifi_entry.gd" id="2_0plhg"]
 [ext_resource type="Texture2D" uid="uid://dcujj7xbbrg5s" path="res://Icons/sprb040D.dll_14_1002_1037-2.png" id="2_sxqt4"]
 [ext_resource type="Texture2D" uid="uid://db4bk22uc15vk" path="res://Icons/sprb040D.dll_14_2001_1037-5.png" id="3_sn082"]
+[ext_resource type="LabelSettings" uid="uid://j84ihwgc8eri" path="res://Resources/Label Settings/wifi_entry_label_settings.tres" id="4_2fotj"]
 [ext_resource type="Texture2D" uid="uid://dhcphn3pusqtw" path="res://Icons/sprb040D.dll_14_2013_1037.png" id="4_rqdwc"]
+[ext_resource type="LabelSettings" uid="uid://sv85o0daymhf" path="res://Resources/Label Settings/wifi_entry_security_label.tres" id="5_7gakh"]
 [ext_resource type="Texture2D" uid="uid://bbn7rmmy1ai52" path="res://Icons/sprb040D.dll_14_2022_1037.png" id="5_ht0by"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2fotj"]
 shader = ExtResource("1_0plhg")
-shader_parameter/top_color = Color(0.858824, 0.917647, 0.976471, 1)
-shader_parameter/bottom_color = Color(0.730748, 0.820815, 0.954486, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_sxqt4"]
-font_size = 12
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sxqt4"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -23,15 +19,24 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 
-[sub_resource type="LabelSettings" id="LabelSettings_sn082"]
-font_size = 10
-font_color = Color(0, 0, 0, 1)
+[sub_resource type="SystemFont" id="SystemFont_0plhg"]
+font_names = PackedStringArray("Tahoma")
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_2fotj"]
+font = SubResource("SystemFont_0plhg")
+font_size = 12
 
 [node name="WifiNetwork" type="ColorRect"]
 material = SubResource("ShaderMaterial_2fotj")
+instance_shader_parameters/bottom_color = Color(0.898664, 0.928532, 0.972875, 1)
+instance_shader_parameters/clicked_color = Color(5.96821e-06, 0.661669, 0.899346, 1)
+instance_shader_parameters/enabled = true
+instance_shader_parameters/top_color = Color(1, 1, 1, 1)
 custom_minimum_size = Vector2(0, 60)
-offset_right = 511.0
-offset_bottom = 59.0
+offset_right = 509.0
+offset_bottom = 60.0
+color = Color(1, 1, 1, 0)
 script = ExtResource("2_0plhg")
 
 [node name="WirelessIcon" type="TextureRect" parent="."]
@@ -45,15 +50,16 @@ stretch_mode = 5
 [node name="SSID" type="Label" parent="."]
 layout_mode = 0
 offset_left = 64.0
-offset_right = 168.0
-offset_bottom = 23.0
+offset_right = 182.0
+offset_bottom = 17.0
 text = "WIRELESS NETWORK"
-label_settings = SubResource("LabelSettings_sxqt4")
+label_settings = ExtResource("4_2fotj")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 0
-offset_right = 511.0
+offset_right = 509.0
 offset_bottom = 60.0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sxqt4")
 
 [node name="WifiSecurity" type="Control" parent="."]
@@ -67,14 +73,14 @@ offset_bottom = 55.0
 layout_mode = 0
 offset_left = 20.0
 offset_right = 286.0
-offset_bottom = 23.0
+offset_bottom = 16.0
 text = "Security-enabled wireless network"
-label_settings = SubResource("LabelSettings_sn082")
+label_settings = ExtResource("5_7gakh")
 
 [node name="SecurityIcon" type="TextureRect" parent="WifiSecurity"]
 layout_mode = 0
-offset_right = 17.0
-offset_bottom = 14.0
+offset_right = 18.0
+offset_bottom = 15.0
 texture = ExtResource("3_sn082")
 expand_mode = 1
 stretch_mode = 5
@@ -94,7 +100,7 @@ offset_top = 5.0
 offset_right = 479.0
 offset_bottom = 22.0
 text = "Not Connected"
-label_settings = SubResource("LabelSettings_sxqt4")
+label_settings = ExtResource("4_2fotj")
 
 [node name="ConnectedStar" type="TextureRect" parent="."]
 layout_mode = 0
@@ -105,3 +111,17 @@ offset_bottom = 21.0
 texture = ExtResource("5_ht0by")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="ConnectReady" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 478.0
+offset_bottom = 97.0
+text = "To connect to this network, click Connect. You might need to enter additional information"
+label_settings = SubResource("LabelSettings_2fotj")
+autowrap_mode = 2
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

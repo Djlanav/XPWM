@@ -3,6 +3,5 @@
 [ext_resource type="Shader" uid="uid://w6bintgwrf8q" path="res://Shaders/wifi_entry.gdshader" id="1_4vm4r"]
 
 [resource]
+resource_local_to_scene = true
 shader = ExtResource("1_4vm4r")
-shader_parameter/top_color = Color(0.770548, 0.831494, 0.963489, 1)
-shader_parameter/bottom_color = Color(0.4, 0.537255, 0.866667, 1)

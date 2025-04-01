@@ -18,6 +18,10 @@ boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/show_image=false
 config/icon="uid://ca0acw213it0e"
 
+[autoload]
+
+Globals="*res://Scripts/globals.gd"
+
 [display]
 
 window/size/viewport_width=800

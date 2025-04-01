@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://sv85o0daymhf"]
+
+[sub_resource type="SystemFont" id="SystemFont_2fotj"]
+font_names = PackedStringArray("Tahoma")
+
+[resource]
+resource_local_to_scene = true
+font = SubResource("SystemFont_2fotj")
+font_size = 12
+font_color = Color(0, 0, 0, 1)

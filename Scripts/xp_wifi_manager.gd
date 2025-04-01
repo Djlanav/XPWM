@@ -2,14 +2,32 @@ extends Control
 class_name XPWifiManager
 
 
+enum ConnectivityStatus {
+	ConnectionStart,
+	ConnectionComplete,
+	ConnectionAttemptFail,
+	Disconnected,
+	Unknown
+}
+
+
+signal connection_status_updated(status: ConnectivityStatus)
+signal began_connecting
+
+
 @onready var wlan_api: WlanAPI = $WlanAPI
 @onready var networks_list: VBoxContainer = %NetworksContainer
 @onready var refresh_timer: Timer = $RefreshTimer
 @onready var no_wifi: Control = %NoWifiFound
+@onready var scroll_bar: VScrollBar = $WifiList/VScrollBar
+@onready var scroll_container: ScrollContainer = $WifiList/ScrollContainer
 
 
 var wifi_entry_scene := preload("uid://bhaepryhfj0y6")
 var wifi_entry_shader := preload("uid://j3eomwo8xfqk")
+
+
+var connecting: bool
 
 
 func _ready() -> void:
@@ -26,6 +44,27 @@ func _ready() -> void:
 	refresh(false)
 
 
+func _process(_delta: float) -> void:
+	var connection_status := wlan_api.poll_connection_status() as String
+	match connection_status:
+		"ConnectionStart":
+			connection_status_updated.emit(ConnectivityStatus.ConnectionStart)
+		"ConnectionComplete":
+			connection_status_updated.emit(ConnectivityStatus.ConnectionComplete)
+		"ConnectionAttemptFail":
+			connection_status_updated.emit(ConnectivityStatus.ConnectionAttemptFail)
+		"Disconnected":
+			connection_status_updated.emit(ConnectivityStatus.Disconnected)
+		"Unknown":
+			connection_status_updated.emit(ConnectivityStatus.Unknown)
+	
+	if networks_list.get_child_count() >= 7:
+		scroll_bar.show()
+		scroll_container.set_deferred("scroll_vertical", scroll_bar.get_value())
+	else:
+		scroll_bar.hide()
+
+
 func refresh(run_timer: bool) -> void:
 	wlan_api.scan_networks()
 	
@@ -37,6 +76,7 @@ func refresh(run_timer: bool) -> void:
 
 
 func _on_wlan_api_network_data_fetched() -> void:
+	print_debug("Data fetched?")
 	var networks := wlan_api.get_networks() as Dictionary
 	
 	for net_ssid: String in networks:
@@ -70,3 +110,18 @@ func _on_task_panel_refresh_requested() -> void:
 		network.queue_free()
 	
 	refresh(false)
+
+
+func _on_wifi_entry_selected(ssid: String) -> void:
+	pass
+
+
+func _on_connect_pressed() -> void:
+	connecting = true
+	began_connecting.emit()
+	
+	var wifi_entry := Globals.get_selected_network()
+	
+	if is_instance_valid(wifi_entry):
+		var ssid := wifi_entry.get_ssid()
+		print("[WLAN] Connecting to ", ssid)
