@@ -123,5 +123,16 @@ text = "To connect to this network, click Connect. You might need to enter addit
 label_settings = SubResource("LabelSettings_2fotj")
 autowrap_mode = 2
 
+[node name="ConnectedAlready" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 482.0
+offset_bottom = 97.0
+text = "You are currently connected to this network. To disconnect from this network, click Disconnect"
+label_settings = SubResource("LabelSettings_2fotj")
+autowrap_mode = 2
+
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -2,7 +2,7 @@ extends ColorRect
 class_name WiFiEntry
 
 
-signal selected(ssid: String)
+signal selected(connected: bool)
 
 
 @onready var ssid_label: Label = $SSID
@@ -13,6 +13,7 @@ signal selected(ssid: String)
 @onready var connection_status: Label = $ConnectionStatus
 @onready var connected_star: TextureRect = $ConnectedStar
 @onready var connect_ready: Label = $ConnectReady
+@onready var connected_already: Label = $ConnectedAlready
 @onready var border_panel: Panel = $Panel
 
 
@@ -25,6 +26,7 @@ var full_bars := preload("uid://c7hb0lggsp1fx")
 
 
 var focused: bool = false
+var connected: bool
 var shader_material: ShaderMaterial
 
 
@@ -36,18 +38,26 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		if event.is_pressed() and focused:
-			selected.emit(ssid_label.get_text())
+		if event.is_pressed() and focused and event.button_index == MOUSE_BUTTON_LEFT:
+			selected.emit(connected)
 			
 			set_instance_shader_parameter("enabled", false)
 			Globals.set_selected_network(self)
-			connect_ready.show()
+			
+			if not connected:
+				connect_ready.show()
+			else:
+				connected_already.show()
+			
 			set_full_custom_minimum_size(Vector2(0.0, 137.0))
 			set_text_color(Color.WHITE)
 		
 		if event.is_pressed() and not focused:
 			set_instance_shader_parameter("enabled", true)
+			
 			connect_ready.hide()
+			connected_already.hide()
+			
 			set_full_custom_minimum_size(Vector2(0.0, 60.0))
 			set_text_color(Color.BLACK)
 
@@ -79,11 +89,18 @@ func check_security(is_secure: bool) -> void:
 
 
 func set_connected() -> void:
+	connected = true
 	connected_star.show()
 	
 	connection_status.set_text("Connected")
 	connection_status.set_position(Vector2(415.0, 5.0))
 	connection_status.show()
+
+
+func set_disconnected() -> void:
+	connected = false
+	connected_star.hide()
+	connection_status.hide()
 
 
 func set_acquiring() -> void:
@@ -126,6 +143,8 @@ func _on_connection_status_updated(status: XPWifiManager.ConnectivityStatus) -> 
 			set_acquiring()
 		XPWifiManager.ConnectivityStatus.ConnectionComplete:
 			set_connected()
+		XPWifiManager.ConnectivityStatus.Disconnected:
+			set_disconnected()
 
 
 func _on_began_connecting() -> void:

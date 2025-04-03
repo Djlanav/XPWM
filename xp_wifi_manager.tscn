@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://f2v7aewr14nr"]
+[gd_scene load_steps=35 format=3 uid="uid://f2v7aewr14nr"]
 
 [ext_resource type="Script" uid="uid://br34hnvdefdag" path="res://Scripts/xp_wifi_manager.gd" id="1_af6vm"]
 [ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="2_1gypj"]
@@ -10,6 +10,10 @@
 [ext_resource type="Texture2D" uid="uid://si34usp07fx0" path="res://Custom Icons/scroll_bar.png" id="5_2h3r6"]
 [ext_resource type="PackedScene" uid="uid://cwn24ve2vleu" path="res://task_panel.tscn" id="6_ryx5k"]
 [ext_resource type="PackedScene" uid="uid://ydkgmuf2t84u" path="res://related_tasks.tscn" id="7_pgyp6"]
+[ext_resource type="Texture2D" uid="uid://h3y140rfqn50" path="res://Textures/XPBUTTON_DISABLED.png" id="8_6f8u6"]
+[ext_resource type="Texture2D" uid="uid://57g583tl3j52" path="res://Textures/XPBUTTON_HOVER.png" id="9_2h3r6"]
+[ext_resource type="Texture2D" uid="uid://dtkb5jjylcwaq" path="res://Textures/XPBUTTON.png" id="9_nyt5l"]
+[ext_resource type="Texture2D" uid="uid://n160pvc0mraj" path="res://Textures/XPBUTTON_PRESSED.png" id="10_6f8u6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_clcl5"]
 shader = ExtResource("2_nyt5l")
@@ -31,21 +35,33 @@ bg_color = Color(1, 1, 1, 1)
 texture = ExtResource("5_2h3r6")
 texture_margin_top = 89.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ryx5k"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0.235294, 0.454902, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-corner_detail = 2
-shadow_color = Color(1, 0.45098, 0, 0.776471)
-shadow_size = 2
-anti_aliasing = false
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3jmml"]
+texture = ExtResource("8_6f8u6")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yy251"]
+texture = ExtResource("9_2h3r6")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrjn1"]
+texture = ExtResource("10_6f8u6")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2h3r6"]
+texture = ExtResource("9_nyt5l")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
 
 [sub_resource type="SystemFont" id="SystemFont_vbjf1"]
 font_names = PackedStringArray("Tahoma")
@@ -109,8 +125,6 @@ script = ExtResource("1_af6vm")
 wait_time = 5.0
 one_shot = true
 
-[node name="WlanAPI" type="WlanAPI" parent="."]
-
 [node name="LeftBar" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_clcl5")
 layout_mode = 0
@@ -167,13 +181,14 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -135.0
-offset_top = -42.0
-offset_right = -45.0
-offset_bottom = -15.0
+offset_left = -129.0
+offset_top = -43.0
+offset_right = -36.0
+offset_bottom = -17.0
 grow_horizontal = 0
 grow_vertical = 0
 focus_mode = 0
+theme_override_colors/font_disabled_color = Color(0.513726, 0.513726, 0.513726, 1)
 theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -181,10 +196,11 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_1gypj")
 theme_override_font_sizes/font_size = 17
 theme_override_styles/focus = ExtResource("3_1gypj")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_3jmml")
 theme_override_styles/hover_pressed = ExtResource("3_4rxgr")
-theme_override_styles/hover = SubResource("StyleBoxFlat_ryx5k")
-theme_override_styles/pressed = ExtResource("3_4rxgr")
-theme_override_styles/normal = ExtResource("3_1gypj")
+theme_override_styles/hover = SubResource("StyleBoxTexture_yy251")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_rrjn1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_2h3r6")
 text = "Connect"
 
 [node name="Label" type="RichTextLabel" parent="WifiList"]
@@ -280,6 +296,5 @@ offset_right = 23.0
 offset_bottom = 167.0
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
-[connection signal="network_data_fetched" from="WlanAPI" to="." method="_on_wlan_api_network_data_fetched"]
 [connection signal="pressed" from="WifiList/Connect" to="." method="_on_connect_pressed"]
 [connection signal="refresh_requested" from="TaskPanel" to="." method="_on_task_panel_refresh_requested"]
