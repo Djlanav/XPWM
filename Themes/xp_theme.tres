@@ -63,4 +63,7 @@ LineEdit/font_sizes/font_size = 12
 LineEdit/fonts/font = SubResource("SystemFont_41gow")
 LineEdit/styles/normal = SubResource("StyleBoxFlat_41gow")
 LineEdit/styles/read_only = SubResource("StyleBoxFlat_ykiys")
+TooltipLabel/colors/font_color = Color(0, 0, 0, 1)
+TooltipLabel/font_sizes/font_size = 16
+TooltipLabel/fonts/font = ExtResource("1_mp7tr")
 TooltipPanel/styles/panel = SubResource("StyleBoxFlat_r0hiy")

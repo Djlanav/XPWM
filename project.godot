@@ -27,3 +27,7 @@ Globals="*res://Scripts/globals.gd"
 window/size/viewport_width=800
 window/size/viewport_height=600
 window/size/resizable=false
+
+[gui]
+
+theme/custom="uid://8nwomrb47by6"
