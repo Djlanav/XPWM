@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://br34hnvdefdag" path="res://Scripts/xp_wifi_manager.gd" id="1_af6vm"]
 [ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="2_1gypj"]
 [ext_resource type="Shader" uid="uid://cahl5dtldj3p8" path="res://Shaders/gradient.gdshader" id="2_nyt5l"]
-[ext_resource type="StyleBox" uid="uid://c3wwn2voorsh" path="res://Styles/Buttons/xp_button.tres" id="3_1gypj"]
 [ext_resource type="StyleBox" uid="uid://bj1scb3fna1ku" path="res://Styles/Buttons/xp_button_pressed.tres" id="3_4rxgr"]
 [ext_resource type="Texture2D" uid="uid://cdyrr3tpcednu" path="res://Custom Icons/down_scroll.png" id="3_nyt5l"]
 [ext_resource type="Texture2D" uid="uid://dbp3wmoqq48kj" path="res://Custom Icons/upward_scroll.png" id="4_clcl5"]
@@ -14,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://57g583tl3j52" path="res://Textures/XPBUTTON_HOVER.png" id="9_2h3r6"]
 [ext_resource type="Texture2D" uid="uid://dtkb5jjylcwaq" path="res://Textures/XPBUTTON.png" id="9_nyt5l"]
 [ext_resource type="Texture2D" uid="uid://n160pvc0mraj" path="res://Textures/XPBUTTON_PRESSED.png" id="10_6f8u6"]
+[ext_resource type="PackedScene" uid="uid://cr2r2nh3wiwp7" path="res://password_window.tscn" id="15_yy251"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_clcl5"]
 shader = ExtResource("2_nyt5l")
@@ -75,11 +75,11 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.6, 0.611765, 0.584314, 1)
 
-[sub_resource type="SystemFont" id="SystemFont_4rxgr"]
+[sub_resource type="SystemFont" id="SystemFont_6f8u6"]
 font_names = PackedStringArray("Tahoma")
 
 [sub_resource type="LabelSettings" id="LabelSettings_4rxgr"]
-font = SubResource("SystemFont_4rxgr")
+font = SubResource("SystemFont_6f8u6")
 font_size = 12
 font_color = Color(0, 0, 0, 1)
 
@@ -195,7 +195,6 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_1gypj")
 theme_override_font_sizes/font_size = 17
-theme_override_styles/focus = ExtResource("3_1gypj")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_3jmml")
 theme_override_styles/hover_pressed = ExtResource("3_4rxgr")
 theme_override_styles/hover = SubResource("StyleBoxTexture_yy251")
@@ -235,7 +234,6 @@ autowrap_mode = 2
 
 [node name="NoWifiFound" type="Control" parent="WifiList"]
 unique_name_in_owner = true
-z_index = 4
 anchors_preset = 0
 offset_left = 139.0
 offset_top = 195.0
@@ -294,6 +292,13 @@ offset_left = 23.0
 offset_top = 167.0
 offset_right = 23.0
 offset_bottom = 167.0
+
+[node name="TitlePanel" parent="." instance=ExtResource("15_yy251")]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 302.0
+offset_right = 732.0
+offset_bottom = 324.0
 
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="pressed" from="WifiList/Connect" to="." method="_on_connect_pressed"]

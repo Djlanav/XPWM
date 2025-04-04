@@ -1,5 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://ydkgmuf2t84u"]
+[gd_scene load_steps=11 format=3 uid="uid://ydkgmuf2t84u"]
 
+[ext_resource type="Script" uid="uid://xfqgtixaitbb" path="res://Scripts/related_tasks.gd" id="1_gowdy"]
 [ext_resource type="Shader" uid="uid://btgs8r3ipldd5" path="res://Shaders/task_panel.gdshader" id="1_j8sut"]
 [ext_resource type="Texture2D" uid="uid://ecydvw2n6w48" path="res://Icons/ahui.exe_14_2006-5.png" id="2_g5qsa"]
 [ext_resource type="Texture2D" uid="uid://bbn7rmmy1ai52" path="res://Icons/sprb040D.dll_14_2022_1037.png" id="3_aple1"]
@@ -35,6 +36,7 @@ subpixel_positioning = 0
 [node name="RelatedTasks" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+script = ExtResource("1_gowdy")
 
 [node name="Title" type="Panel" parent="."]
 material = SubResource("ShaderMaterial_g5qsa")
@@ -78,14 +80,17 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="LearnMoreLabel" type="RichTextLabel" parent="LearnMore"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 32.0
 offset_top = 40.0
 offset_right = 161.0
 offset_bottom = 72.0
+mouse_default_cursor_shape = 2
 theme_override_colors/default_color = Color(0.133333, 0.356863, 0.807843, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_g5qsa")
 theme_override_font_sizes/normal_font_size = 11
+bbcode_enabled = true
 text = "Learn about wireless networking"
 
 [node name="PreferredOrder" type="Control" parent="."]
@@ -104,15 +109,18 @@ texture = ExtResource("3_aple1")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LearnMoreLabel" type="RichTextLabel" parent="PreferredOrder"]
+[node name="PreferredOrderLabel" type="RichTextLabel" parent="PreferredOrder"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 32.0
 offset_top = 100.0
 offset_right = 161.0
 offset_bottom = 132.0
+mouse_default_cursor_shape = 2
 theme_override_colors/default_color = Color(0.133333, 0.356863, 0.807843, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_g5qsa")
 theme_override_font_sizes/normal_font_size = 11
+bbcode_enabled = true
 text = "Change the order of preferred networks"
 
 [node name="AdvancedSettings" type="Control" parent="."]
@@ -131,15 +139,24 @@ texture = ExtResource("4_j8sut")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="LearnMoreLabel" type="RichTextLabel" parent="AdvancedSettings"]
+[node name="AdvancedSettingsLabel" type="RichTextLabel" parent="AdvancedSettings"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 33.0
 offset_top = 145.0
 offset_right = 140.0
 offset_bottom = 174.0
+mouse_default_cursor_shape = 2
 theme_override_colors/default_color = Color(0.133333, 0.356863, 0.807843, 1)
 theme_override_fonts/normal_font = SubResource("SystemFont_g5qsa")
 theme_override_font_sizes/normal_font_size = 11
 bbcode_enabled = true
 text = "Change advanced settings
 "
+
+[connection signal="mouse_entered" from="LearnMore/LearnMoreLabel" to="." method="_on_learn_more_label_mouse_entered"]
+[connection signal="mouse_exited" from="LearnMore/LearnMoreLabel" to="." method="_on_learn_more_label_mouse_exited"]
+[connection signal="mouse_entered" from="PreferredOrder/PreferredOrderLabel" to="." method="_on_preferred_order_label_mouse_entered"]
+[connection signal="mouse_exited" from="PreferredOrder/PreferredOrderLabel" to="." method="_on_preferred_order_label_mouse_exited"]
+[connection signal="mouse_entered" from="AdvancedSettings/AdvancedSettingsLabel" to="." method="_on_advanced_settings_label_mouse_entered"]
+[connection signal="mouse_exited" from="AdvancedSettings/AdvancedSettingsLabel" to="." method="_on_advanced_settings_label_mouse_exited"]

@@ -2,22 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvvqvruigo4mu"
-path.bptc="res://.godot/imported/xpbarleft.png-0ec1f4372789cdb85fea63be3718f267.bptc.ctex"
+uid="uid://wfckuksjj8p1"
+path="res://.godot/imported/XPBUTTON_CLOSE.png-4ded29e4246ba26f596489d430bec8af.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/xpbarleft.png"
-dest_files=["res://.godot/imported/xpbarleft.png-0ec1f4372789cdb85fea63be3718f267.bptc.ctex"]
+source_file="res://Textures/XPBUTTON_CLOSE.png"
+dest_files=["res://.godot/imported/XPBUTTON_CLOSE.png-4ded29e4246ba26f596489d430bec8af.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

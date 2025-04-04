@@ -17,6 +17,11 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and refresh_focused:
 		if event.is_pressed():
 			refresh_requested.emit()
+	elif event is InputEventMouseButton and setup_focused:
+		if event.is_pressed():
+			Win32API.show_info_message_box(
+				"Unimplemented", 
+				"This feature is not yet implemented!")
 
 
 func _on_refresh_mouse_entered() -> void:

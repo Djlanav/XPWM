@@ -1,0 +1,6 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://b8mwnfjwywdc"]
+
+[ext_resource type="Texture2D" uid="uid://57g583tl3j52" path="res://Textures/XPBUTTON_HOVER.png" id="1_mvi56"]
+
+[resource]
+texture = ExtResource("1_mvi56")

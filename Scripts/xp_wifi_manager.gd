@@ -38,7 +38,7 @@ func _ready() -> void:
 		network.queue_free()
 	
 	WlanAPI.read_from_known_networks()
-	refresh(false)
+	#refresh(false)
 
 
 func _process(_delta: float) -> void:
