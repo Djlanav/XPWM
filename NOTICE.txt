@@ -1,0 +1,24 @@
+XP Wireless Manager
+===================
+
+**Third-Party Assets and Licenses**
+
+1. **Font: Windows XP Tahoma (FontStruct version)**
+   - **Creator:** tiono785
+   - **Based on:** "fs Tahoma 8px" by ETHproductions
+   - **License:** Creative Commons Attribution Share-Alike 3.0
+   - **Font Link:** https://fontstruct.com/fontstructions/show/1888398
+   - **License Details:** https://creativecommons.org/licenses/by-sa/3.0/
+
+2. **Windows XP UI Graphics**
+   - **Source:** Cropped and processed from a system running a Windows XP-style visual shell.
+   - **Purpose:** Used for educational and nostalgic purposes to recreate the authentic look and feel of the Windows XP Wireless Network Manager.
+   - **Disclaimer:** All original Windows trademarks, icons, and themes are the property of Microsoft Corporation. This project is not affiliated with or endorsed by Microsoft.
+
+**Submodules**
+
+- This project includes a Rust-based backend as a Git submodule, licensed under the same GPL v3 terms as this project unless otherwise stated in that submodule’s own LICENSE file.
+
+**Attribution**
+
+If you use, fork, or distribute this project, please retain this NOTICE file and provide appropriate credit to the original authors and sources of the third-party assets.
