@@ -1,7 +1,9 @@
 extends Panel
+class_name PasswordWindow
 
 
 signal connection_aborted
+signal credentials_provided(password: String)
 
 
 @onready var network_password: LineEdit = $BackgroundPanel/NetworkPassword
@@ -35,7 +37,20 @@ func _on_connect_pressed() -> void:
 		Win32API.show_error_message_box(
 			"Wireless Configuration", 
 			"The network keys you typed do not match. \nPlease reenter the network key in the confirmation text box.")
+	else:
+		credentials_provided.emit(password)
+		hide()
 
 
 func _on_cancel_pressed() -> void:
 	connection_aborted.emit()
+	hide()
+
+
+func _on_close_button_pressed() -> void:
+	connection_aborted.emit()
+	hide()
+
+
+func _on_xp_wifi_manager_began_connecting() -> void:
+	show()

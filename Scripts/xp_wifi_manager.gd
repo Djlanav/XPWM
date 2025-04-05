@@ -18,9 +18,10 @@ signal began_connecting
 @onready var networks_list: VBoxContainer = %NetworksContainer
 @onready var refresh_timer: Timer = $RefreshTimer
 @onready var no_wifi: Control = %NoWifiFound
-@onready var scroll_bar: VScrollBar = $WifiList/VScrollBar
-@onready var scroll_container: ScrollContainer = $WifiList/ScrollContainer
+@onready var scroll_bar: VScrollBar = %VScrollBar
+@onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var connect_button: Button = $WifiList/Connect
+@onready var password_window: PasswordWindow = $PasswordLayer/PasswordWindow
 
 
 var wifi_entry_scene := preload("uid://bhaepryhfj0y6")
@@ -101,6 +102,8 @@ func _on_wlan_api_network_data_fetched() -> void:
 		wifi_entry.set_signal_strength(network.bars)
 		
 		connection_status_updated.connect(wifi_entry._on_connection_status_updated)
+		began_connecting.connect(wifi_entry._on_began_connecting)
+		
 		wifi_entry.selected.connect(_on_wifi_entry_selected)
 		print("[WLAN] SSID Found: ", net_ssid)
 	
@@ -128,4 +131,8 @@ func _on_connect_pressed() -> void:
 		if wifi_entry.connected:
 			WlanAPI.disconnect()
 		else:
-			pass
+			began_connecting.emit()
+
+
+func _on_password_window_credentials_provided(password: String) -> void:
+	pass # Replace with function body.

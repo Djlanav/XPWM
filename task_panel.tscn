@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://jlxc2njt7exi" path="res://Scripts/network_tasks_panel.gd" id="1_mmt3q"]
 [ext_resource type="Shader" uid="uid://btgs8r3ipldd5" path="res://Shaders/task_panel.gdshader" id="2_mmt3q"]
-[ext_resource type="Texture2D" uid="uid://cqhgpyticyyq2" path="res://Icons/sprb040D.dll_14_2020_1037-1.png" id="2_upojo"]
-[ext_resource type="Texture2D" uid="uid://dbkbmsd5gulae" path="res://Icons/sprb040D.dll_14_2026_1037-4.png" id="3_uds7w"]
+[ext_resource type="FontFile" uid="uid://8m7k3wp540ss" path="res://Fonts/tahoma-8pt-bold-windows-xp.ttf" id="3_5n4yc"]
+[ext_resource type="Texture2D" uid="uid://cp6q2gjrtasgr" path="res://Icons/sprb040D.dll_14_2020_1037-0.png" id="4_5n4yc"]
 [ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="4_u6hvu"]
+[ext_resource type="Texture2D" uid="uid://bum4kfk435a2v" path="res://Icons/sprb040D.dll_14_2026_1037-2.png" id="6_5n4yc"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_upojo"]
 shader = ExtResource("2_mmt3q")
@@ -15,11 +16,6 @@ shader_parameter/bottom_color = Color(0.584314, 0.741176, 0.894118, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 anti_aliasing = false
-
-[sub_resource type="SystemFont" id="SystemFont_vaxac"]
-font_names = PackedStringArray("Tahoma")
-font_weight = 575
-subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upojo"]
 bg_color = Color(0.701961, 0.815686, 0.92549, 1)
@@ -42,14 +38,15 @@ offset_bottom = 24.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_uds7w")
 
 [node name="Label" type="RichTextLabel" parent="Title"]
+clip_contents = false
 layout_mode = 0
 offset_left = 5.0
-offset_top = 3.0
+offset_top = 4.0
 offset_right = 122.0
-offset_bottom = 21.0
+offset_bottom = 18.0
 theme_override_colors/default_color = Color(0.129412, 0.352941, 0.807843, 1)
-theme_override_fonts/bold_font = SubResource("SystemFont_vaxac")
-theme_override_font_sizes/bold_font_size = 12
+theme_override_fonts/bold_font = ExtResource("3_5n4yc")
+theme_override_font_sizes/bold_font_size = 11
 bbcode_enabled = true
 text = "[b]Network Tasks"
 
@@ -69,10 +66,11 @@ offset_bottom = 55.0
 
 [node name="RefreshIcon" type="TextureRect" parent="Refresh"]
 layout_mode = 0
+offset_left = -3.0
 offset_top = 1.0
-offset_right = 19.0
+offset_right = 16.0
 offset_bottom = 17.0
-texture = ExtResource("2_upojo")
+texture = ExtResource("4_5n4yc")
 expand_mode = 1
 stretch_mode = 5
 
@@ -80,8 +78,8 @@ stretch_mode = 5
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 0
-offset_left = 28.0
-offset_right = 137.0
+offset_left = 22.0
+offset_right = 131.0
 offset_bottom = 16.0
 mouse_default_cursor_shape = 2
 theme_override_colors/default_color = Color(0.145098, 0.364706, 0.811765, 1)
@@ -100,10 +98,10 @@ offset_bottom = 114.0
 [node name="SetupWirelessIcon" type="TextureRect" parent="SetupWireless"]
 layout_mode = 0
 offset_left = 2.0
-offset_top = 4.0
-offset_right = 24.0
-offset_bottom = 25.0
-texture = ExtResource("3_uds7w")
+offset_top = 2.0
+offset_right = 20.0
+offset_bottom = 19.0
+texture = ExtResource("6_5n4yc")
 expand_mode = 1
 stretch_mode = 5
 
@@ -111,9 +109,9 @@ stretch_mode = 5
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 0
-offset_left = 34.0
+offset_left = 26.0
 offset_top = 2.0
-offset_right = 162.0
+offset_right = 154.0
 offset_bottom = 36.0
 mouse_default_cursor_shape = 2
 theme_override_colors/default_color = Color(0.145098, 0.364706, 0.811765, 1)

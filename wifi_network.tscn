@@ -59,7 +59,7 @@ label_settings = ExtResource("4_2fotj")
 layout_mode = 0
 offset_right = 509.0
 offset_bottom = 60.0
-mouse_filter = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_sxqt4")
 
 [node name="WifiSecurity" type="Control" parent="."]
@@ -68,6 +68,7 @@ offset_left = 57.0
 offset_top = 39.0
 offset_right = 245.0
 offset_bottom = 55.0
+mouse_filter = 2
 
 [node name="SecurityLabel" type="Label" parent="WifiSecurity"]
 layout_mode = 0

@@ -2,10 +2,11 @@
 
 [ext_resource type="Script" uid="uid://xfqgtixaitbb" path="res://Scripts/related_tasks.gd" id="1_gowdy"]
 [ext_resource type="Shader" uid="uid://btgs8r3ipldd5" path="res://Shaders/task_panel.gdshader" id="1_j8sut"]
-[ext_resource type="Texture2D" uid="uid://ecydvw2n6w48" path="res://Icons/ahui.exe_14_2006-5.png" id="2_g5qsa"]
 [ext_resource type="Texture2D" uid="uid://bbn7rmmy1ai52" path="res://Icons/sprb040D.dll_14_2022_1037.png" id="3_aple1"]
+[ext_resource type="FontFile" uid="uid://8m7k3wp540ss" path="res://Fonts/tahoma-8pt-bold-windows-xp.ttf" id="3_ibw16"]
 [ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="4_2qnhg"]
-[ext_resource type="Texture2D" uid="uid://dqdcuvsve7hie" path="res://Icons/sprb040D.dll_14_2025_1037-1.png" id="4_j8sut"]
+[ext_resource type="Texture2D" uid="uid://dnulrccov1tvs" path="res://Icons/ahui.exe_14_2006-7.png" id="4_ibw16"]
+[ext_resource type="Texture2D" uid="uid://doagmek3rps30" path="res://Icons/sprb040D.dll_14_2025_1037-6.png" id="7_ibw16"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g5qsa"]
 shader = ExtResource("1_j8sut")
@@ -16,11 +17,6 @@ shader_parameter/bottom_color = Color(0.584314, 0.741176, 0.894118, 1)
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 anti_aliasing = false
-
-[sub_resource type="SystemFont" id="SystemFont_j8sut"]
-font_names = PackedStringArray("Tahoma")
-font_weight = 575
-subpixel_positioning = 0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pkvnw"]
 bg_color = Color(0.701961, 0.815686, 0.92549, 1)
@@ -43,14 +39,15 @@ offset_bottom = 24.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_aple1")
 
 [node name="Label" type="RichTextLabel" parent="Title"]
+clip_contents = false
 layout_mode = 0
 offset_left = 5.0
-offset_top = 3.0
-offset_right = 122.0
-offset_bottom = 21.0
+offset_top = 4.0
+offset_right = 102.0
+offset_bottom = 18.0
 theme_override_colors/default_color = Color(0.129412, 0.352941, 0.807843, 1)
-theme_override_fonts/bold_font = SubResource("SystemFont_j8sut")
-theme_override_font_sizes/bold_font_size = 12
+theme_override_fonts/bold_font = ExtResource("3_ibw16")
+theme_override_font_sizes/bold_font_size = 11
 bbcode_enabled = true
 text = "[b]Related Tasks"
 
@@ -68,11 +65,11 @@ offset_bottom = 40.0
 
 [node name="LearnMoreIcon" type="TextureRect" parent="LearnMore"]
 layout_mode = 0
-offset_left = 2.0
+offset_left = 5.0
 offset_top = 41.0
 offset_right = 25.0
-offset_bottom = 59.0
-texture = ExtResource("2_g5qsa")
+offset_bottom = 57.0
+texture = ExtResource("4_ibw16")
 expand_mode = 1
 stretch_mode = 5
 
@@ -99,9 +96,9 @@ offset_bottom = 28.0
 
 [node name="PreferredIcon" type="TextureRect" parent="PreferredOrder"]
 layout_mode = 0
-offset_left = 2.0
+offset_left = 3.0
 offset_top = 103.0
-offset_right = 25.0
+offset_right = 26.0
 offset_bottom = 121.0
 texture = ExtResource("3_aple1")
 expand_mode = 1
@@ -130,11 +127,11 @@ offset_bottom = 33.0
 
 [node name="AdvancedIcon" type="TextureRect" parent="AdvancedSettings"]
 layout_mode = 0
-offset_left = 4.0
-offset_top = 143.0
+offset_left = 6.0
+offset_top = 145.0
 offset_right = 27.0
 offset_bottom = 161.0
-texture = ExtResource("4_j8sut")
+texture = ExtResource("7_ibw16")
 expand_mode = 1
 stretch_mode = 5
 

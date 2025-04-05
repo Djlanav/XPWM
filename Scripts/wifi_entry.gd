@@ -36,30 +36,29 @@ func _ready() -> void:
 	shader_material.set_shader_parameter("bottom_color", Color(0.4, 0.537255, 0.866667, 1))
 
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		if event.is_pressed() and focused and event.button_index == MOUSE_BUTTON_LEFT:
-			selected.emit(connected)
+func select() -> void:
+	selected.emit(connected)
 			
-			set_instance_shader_parameter("enabled", false)
-			Globals.set_selected_network(self)
+	set_instance_shader_parameter("enabled", false)
+	Globals.set_selected_network(self)
 			
-			if not connected:
-				connect_ready.show()
-			else:
-				connected_already.show()
+	if not connected:
+		connect_ready.show()
+	else:
+		connected_already.show()
 			
-			set_full_custom_minimum_size(Vector2(0.0, 137.0))
-			set_text_color(Color.WHITE)
-		
-		if event.is_pressed() and not focused:
-			set_instance_shader_parameter("enabled", true)
-			
-			connect_ready.hide()
-			connected_already.hide()
-			
-			set_full_custom_minimum_size(Vector2(0.0, 60.0))
-			set_text_color(Color.BLACK)
+	set_full_custom_minimum_size(Vector2(0.0, 137.0))
+	set_text_color(Color.WHITE)
+
+
+func deselect() -> void:
+	set_instance_shader_parameter("enabled", true)
+	
+	connect_ready.hide()
+	connection_status.hide()
+	
+	set_full_custom_minimum_size(Vector2(0.0, 60.0))
+	set_text_color(Color.BLACK)
 
 
 func set_full_custom_minimum_size(new_size: Vector2) -> void:
@@ -148,8 +147,9 @@ func _on_connection_status_updated(status: XPWifiManager.ConnectivityStatus) -> 
 
 
 func _on_began_connecting() -> void:
-	connection_status.set_text("Not Connected")
-	connection_status.show()
+	if self.get_ssid() == Globals.get_selected_network().get_ssid():
+		connection_status.set_text("Not Connected")
+		connection_status.show()
 
 
 func _on_mouse_entered() -> void:

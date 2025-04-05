@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://f2v7aewr14nr"]
+[gd_scene load_steps=23 format=3 uid="uid://f2v7aewr14nr"]
 
 [ext_resource type="Script" uid="uid://br34hnvdefdag" path="res://Scripts/xp_wifi_manager.gd" id="1_af6vm"]
 [ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="2_1gypj"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://cdyrr3tpcednu" path="res://Custom Icons/down_scroll.png" id="3_nyt5l"]
 [ext_resource type="Texture2D" uid="uid://dbp3wmoqq48kj" path="res://Custom Icons/upward_scroll.png" id="4_clcl5"]
 [ext_resource type="Texture2D" uid="uid://si34usp07fx0" path="res://Custom Icons/scroll_bar.png" id="5_2h3r6"]
+[ext_resource type="Script" uid="uid://c8neudd57ba4m" path="res://Scripts/networks_container.gd" id="6_7nnro"]
 [ext_resource type="PackedScene" uid="uid://cwn24ve2vleu" path="res://task_panel.tscn" id="6_ryx5k"]
 [ext_resource type="PackedScene" uid="uid://ydkgmuf2t84u" path="res://related_tasks.tscn" id="7_pgyp6"]
 [ext_resource type="PackedScene" uid="uid://cr2r2nh3wiwp7" path="res://password_window.tscn" id="15_yy251"]
@@ -73,7 +74,17 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 2
 script = ExtResource("1_af6vm")
+
+[node name="PasswordLayer" type="CanvasLayer" parent="."]
+
+[node name="PasswordWindow" parent="PasswordLayer" instance=ExtResource("15_yy251")]
+z_index = 2
+offset_left = 268.0
+offset_top = 388.0
+offset_right = 720.0
+offset_bottom = 410.0
 
 [node name="RefreshTimer" type="Timer" parent="."]
 wait_time = 5.0
@@ -102,10 +113,11 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xyx7o")
 
 [node name="VScrollBar" type="VScrollBar" parent="WifiList"]
-layout_mode = 2
+unique_name_in_owner = true
+layout_mode = 0
 offset_left = 528.0
 offset_top = 115.0
-offset_right = 536.0
+offset_right = 541.0
 offset_bottom = 527.0
 theme_override_icons/increment = ExtResource("3_nyt5l")
 theme_override_icons/decrement = ExtResource("4_clcl5")
@@ -113,6 +125,7 @@ theme_override_styles/scroll = SubResource("StyleBoxFlat_nyt5l")
 theme_override_styles/grabber = SubResource("StyleBoxTexture_clcl5")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="WifiList"]
+unique_name_in_owner = true
 layout_mode = 0
 offset_left = 17.0
 offset_top = 116.0
@@ -127,6 +140,7 @@ custom_minimum_size = Vector2(509, 40)
 layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 0
+script = ExtResource("6_7nnro")
 
 [node name="Connect" type="Button" parent="WifiList"]
 layout_mode = 1
@@ -188,6 +202,7 @@ offset_left = 139.0
 offset_top = 195.0
 offset_right = 404.0
 offset_bottom = 268.0
+mouse_filter = 2
 
 [node name="NoWifiFoundLabel" type="Label" parent="WifiList/NoWifiFound"]
 layout_mode = 0
@@ -242,13 +257,8 @@ offset_top = 167.0
 offset_right = 23.0
 offset_bottom = 167.0
 
-[node name="TitlePanel" parent="." instance=ExtResource("15_yy251")]
-layout_mode = 0
-offset_left = 280.0
-offset_top = 302.0
-offset_right = 732.0
-offset_bottom = 324.0
-
+[connection signal="began_connecting" from="." to="PasswordLayer/PasswordWindow" method="_on_xp_wifi_manager_began_connecting"]
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="credentials_provided" from="PasswordLayer/PasswordWindow" to="." method="_on_password_window_credentials_provided"]
 [connection signal="pressed" from="WifiList/Connect" to="." method="_on_connect_pressed"]
 [connection signal="refresh_requested" from="TaskPanel" to="." method="_on_task_panel_refresh_requested"]
