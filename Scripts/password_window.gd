@@ -3,7 +3,7 @@ class_name PasswordWindow
 
 
 signal connection_aborted
-signal credentials_provided(password: String)
+signal credentials_provided(ssid: String, password: Variant)
 
 
 @onready var network_password: LineEdit = $BackgroundPanel/NetworkPassword
@@ -14,6 +14,7 @@ signal credentials_provided(password: String)
 
 var dragging := false
 var drag_offset := Vector2.ZERO
+var connect_ssid: Variant
 
 
 func _input(event: InputEvent) -> void:
@@ -38,7 +39,7 @@ func _on_connect_pressed() -> void:
 			"Wireless Configuration", 
 			"The network keys you typed do not match. \nPlease reenter the network key in the confirmation text box.")
 	else:
-		credentials_provided.emit(password)
+		credentials_provided.emit(connect_ssid, password)
 		hide()
 
 
@@ -52,5 +53,9 @@ func _on_close_button_pressed() -> void:
 	hide()
 
 
-func _on_xp_wifi_manager_began_connecting() -> void:
-	show()
+func _on_xp_wifi_manager_began_connecting(connecting_ssid: String) -> void:
+	if not WlanAPI.is_known_network(connecting_ssid):
+		show()
+		connect_ssid = connecting_ssid
+	else:
+		credentials_provided.emit(connecting_ssid, null)

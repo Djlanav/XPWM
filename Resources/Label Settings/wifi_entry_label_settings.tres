@@ -1,6 +1,9 @@
-[gd_resource type="LabelSettings" format=3 uid="uid://j84ihwgc8eri"]
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://j84ihwgc8eri"]
+
+[ext_resource type="FontFile" uid="uid://bdqb3gcnb8slx" path="res://Fonts/tahoma-8pt-bold-windows-xp-oversampled.ttf" id="1_6qgvb"]
 
 [resource]
 resource_local_to_scene = true
+font = ExtResource("1_6qgvb")
 font_size = 12
 font_color = Color(0, 0, 0, 1)

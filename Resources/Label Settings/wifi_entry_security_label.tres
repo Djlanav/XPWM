@@ -1,10 +1,8 @@
 [gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://sv85o0daymhf"]
 
-[sub_resource type="SystemFont" id="SystemFont_2fotj"]
-font_names = PackedStringArray("Tahoma")
+[ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="1_rgy8i"]
 
 [resource]
 resource_local_to_scene = true
-font = SubResource("SystemFont_2fotj")
-font_size = 12
+font = ExtResource("1_rgy8i")
 font_color = Color(0, 0, 0, 1)

@@ -36,6 +36,7 @@ instance_shader_parameters/top_color = Color(1, 1, 1, 1)
 custom_minimum_size = Vector2(0, 60)
 offset_right = 509.0
 offset_bottom = 60.0
+mouse_filter = 1
 color = Color(1, 1, 1, 0)
 script = ExtResource("2_0plhg")
 
@@ -52,6 +53,7 @@ layout_mode = 0
 offset_left = 64.0
 offset_right = 182.0
 offset_bottom = 17.0
+mouse_filter = 1
 text = "WIRELESS NETWORK"
 label_settings = ExtResource("4_2fotj")
 
@@ -68,13 +70,15 @@ offset_left = 57.0
 offset_top = 39.0
 offset_right = 245.0
 offset_bottom = 55.0
-mouse_filter = 2
+mouse_filter = 1
 
 [node name="SecurityLabel" type="Label" parent="WifiSecurity"]
 layout_mode = 0
 offset_left = 20.0
+offset_top = 1.0
 offset_right = 286.0
-offset_bottom = 16.0
+offset_bottom = 17.0
+mouse_filter = 1
 text = "Security-enabled wireless network"
 label_settings = ExtResource("5_7gakh")
 
@@ -97,18 +101,20 @@ texture = ExtResource("4_rqdwc")
 [node name="ConnectionStatus" type="Label" parent="."]
 layout_mode = 0
 offset_left = 392.0
-offset_top = 5.0
-offset_right = 479.0
-offset_bottom = 22.0
+offset_top = 2.0
+offset_right = 509.0
+offset_bottom = 35.0
+mouse_filter = 1
 text = "Not Connected"
 label_settings = ExtResource("4_2fotj")
+autowrap_mode = 2
 
 [node name="ConnectedStar" type="TextureRect" parent="."]
 layout_mode = 0
 offset_left = 485.0
-offset_top = 3.0
-offset_right = 511.0
-offset_bottom = 21.0
+offset_top = 1.0
+offset_right = 509.0
+offset_bottom = 16.0
 texture = ExtResource("5_ht0by")
 expand_mode = 1
 stretch_mode = 5
@@ -120,6 +126,7 @@ offset_left = 64.0
 offset_top = 64.0
 offset_right = 478.0
 offset_bottom = 97.0
+mouse_filter = 1
 text = "To connect to this network, click Connect. You might need to enter additional information"
 label_settings = SubResource("LabelSettings_2fotj")
 autowrap_mode = 2
@@ -131,6 +138,7 @@ offset_left = 64.0
 offset_top = 64.0
 offset_right = 482.0
 offset_bottom = 97.0
+mouse_filter = 1
 text = "You are currently connected to this network. To disconnect from this network, click Disconnect"
 label_settings = SubResource("LabelSettings_2fotj")
 autowrap_mode = 2

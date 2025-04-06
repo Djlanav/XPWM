@@ -55,7 +55,8 @@ func deselect() -> void:
 	set_instance_shader_parameter("enabled", true)
 	
 	connect_ready.hide()
-	connection_status.hide()
+	#print_debug("STATUS HIDDEN")
+	#connection_status.hide()
 	
 	set_full_custom_minimum_size(Vector2(0.0, 60.0))
 	set_text_color(Color.BLACK)
@@ -92,19 +93,26 @@ func set_connected() -> void:
 	connected_star.show()
 	
 	connection_status.set_text("Connected")
-	connection_status.set_position(Vector2(415.0, 5.0))
+	connection_status.set_position(Vector2(415.0, 2.0))
 	connection_status.show()
+	
+	connected_already.show()
+	connect_ready.hide()
 
 
 func set_disconnected() -> void:
 	connected = false
 	connected_star.hide()
+	#print_debug("STATUS HIDDEN")
 	connection_status.hide()
+	
+	connect_ready.show()
+	connected_already.hide()
 
 
 func set_acquiring() -> void:
 	connection_status.set_text("Acquiring network address")
-	connection_status.set_position(Vector2(374.0, 5.0))
+	connection_status.set_position(Vector2(370.0, 2.0))
 	connection_status.show()
 
 
@@ -137,19 +145,37 @@ func set_signal_strength(bars: int) -> void:
 
 
 func _on_connection_status_updated(status: XPWifiManager.ConnectivityStatus) -> void:
+	var entry := Globals.get_selected_network()
+	var selected_ssid: String
+	
+	if is_instance_valid(entry):
+		selected_ssid = entry.get_ssid()
+	else:
+		return
+	
 	match status:
 		XPWifiManager.ConnectivityStatus.ConnectionStart:
+			if selected_ssid != get_ssid():
+				return
 			set_acquiring()
 		XPWifiManager.ConnectivityStatus.ConnectionComplete:
+			if selected_ssid != get_ssid():
+				return
 			set_connected()
 		XPWifiManager.ConnectivityStatus.Disconnected:
+			if selected_ssid != get_ssid():
+				return
 			set_disconnected()
 
 
-func _on_began_connecting() -> void:
-	if self.get_ssid() == Globals.get_selected_network().get_ssid():
+func _on_began_connecting(ssid: String) -> void:
+	if self.get_ssid() == ssid:
 		connection_status.set_text("Not Connected")
 		connection_status.show()
+
+
+func _on_disconnect() -> void:
+	pass
 
 
 func _on_mouse_entered() -> void:

@@ -12,7 +12,8 @@ enum ConnectivityStatus {
 
 
 signal connection_status_updated(status: ConnectivityStatus)
-signal began_connecting
+signal began_connecting(connecting_ssid: String)
+signal disconnected
 
 
 @onready var networks_list: VBoxContainer = %NetworksContainer
@@ -131,8 +132,9 @@ func _on_connect_pressed() -> void:
 		if wifi_entry.connected:
 			WlanAPI.disconnect()
 		else:
-			began_connecting.emit()
+			var ssid = wifi_entry.get_ssid()
+			began_connecting.emit(ssid)
 
 
-func _on_password_window_credentials_provided(password: String) -> void:
-	pass # Replace with function body.
+func _on_password_window_credentials_provided(ssid: String, password: Variant) -> void:
+	WlanAPI.connect(ssid, {"password": password})

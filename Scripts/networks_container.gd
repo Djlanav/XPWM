@@ -3,6 +3,9 @@ extends VBoxContainer
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index != MOUSE_BUTTON_LEFT:
+			return
+		
 		if !get_global_rect().has_point(event.global_position):
 			return
 		
