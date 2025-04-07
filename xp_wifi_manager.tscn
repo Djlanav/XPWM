@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://f2v7aewr14nr"]
+[gd_scene load_steps=25 format=3 uid="uid://f2v7aewr14nr"]
 
 [ext_resource type="Script" uid="uid://br34hnvdefdag" path="res://Scripts/xp_wifi_manager.gd" id="1_af6vm"]
 [ext_resource type="FontFile" uid="uid://cwih7em0ui2i2" path="res://Fonts/windows-xp-tahoma.ttf" id="2_1gypj"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://c8neudd57ba4m" path="res://Scripts/networks_container.gd" id="6_7nnro"]
 [ext_resource type="PackedScene" uid="uid://cwn24ve2vleu" path="res://task_panel.tscn" id="6_ryx5k"]
 [ext_resource type="PackedScene" uid="uid://ydkgmuf2t84u" path="res://related_tasks.tscn" id="7_pgyp6"]
+[ext_resource type="Script" uid="uid://c4wrn3sytp7an" path="res://Scripts/connect_button.gd" id="9_nyt5l"]
 [ext_resource type="PackedScene" uid="uid://cr2r2nh3wiwp7" path="res://password_window.tscn" id="15_yy251"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_clcl5"]
@@ -89,6 +90,8 @@ script = ExtResource("1_af6vm")
 [node name="PasswordLayer" type="CanvasLayer" parent="."]
 
 [node name="PasswordWindow" parent="PasswordLayer" instance=ExtResource("15_yy251")]
+unique_name_in_owner = true
+visible = false
 z_index = 2
 offset_left = 280.0
 offset_top = 276.0
@@ -172,6 +175,7 @@ theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_1gypj")
 theme_override_font_sizes/font_size = 17
 text = "Connect"
+script = ExtResource("9_nyt5l")
 
 [node name="Label" type="Label" parent="WifiList"]
 texture_filter = 1
@@ -266,6 +270,8 @@ offset_bottom = 167.0
 
 [connection signal="began_connecting" from="." to="PasswordLayer/PasswordWindow" method="_on_xp_wifi_manager_began_connecting"]
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
+[connection signal="connection_status_updated" from="." to="WifiList/Connect" method="_on_xp_wifi_manager_connection_status_updated"]
 [connection signal="credentials_provided" from="PasswordLayer/PasswordWindow" to="." method="_on_password_window_credentials_provided"]
+[connection signal="visibility_changed" from="PasswordLayer/PasswordWindow" to="." method="_on_password_window_visibility_changed"]
 [connection signal="pressed" from="WifiList/Connect" to="." method="_on_connect_pressed"]
 [connection signal="refresh_requested" from="TaskPanel" to="." method="_on_task_panel_refresh_requested"]

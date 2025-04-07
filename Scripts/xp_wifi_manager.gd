@@ -13,7 +13,6 @@ enum ConnectivityStatus {
 
 signal connection_status_updated(status: ConnectivityStatus)
 signal began_connecting(connecting_ssid: String)
-signal disconnected
 
 
 @onready var networks_list: VBoxContainer = %NetworksContainer
@@ -22,7 +21,7 @@ signal disconnected
 @onready var scroll_bar: VScrollBar = %VScrollBar
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var connect_button: Button = $WifiList/Connect
-@onready var password_window: PasswordWindow = $PasswordLayer/PasswordWindow
+@onready var password_window: PasswordWindow = %PasswordWindow
 
 
 var wifi_entry_scene := preload("uid://bhaepryhfj0y6")
@@ -33,6 +32,8 @@ var connecting: bool
 
 
 func _ready() -> void:
+	get_viewport().get_window().title = "Wireless Network Connection"
+	
 	WlanAPI.network_data_fetched.connect(_on_wlan_api_network_data_fetched)
 	
 	var networks = networks_list.get_children()
@@ -104,6 +105,7 @@ func _on_wlan_api_network_data_fetched() -> void:
 		
 		connection_status_updated.connect(wifi_entry._on_connection_status_updated)
 		began_connecting.connect(wifi_entry._on_began_connecting)
+		password_window.connection_aborted.connect(wifi_entry._on_connection_aborted)
 		
 		wifi_entry.selected.connect(_on_wifi_entry_selected)
 		print("[WLAN] SSID Found: ", net_ssid)
@@ -138,3 +140,10 @@ func _on_connect_pressed() -> void:
 
 func _on_password_window_credentials_provided(ssid: String, password: Variant) -> void:
 	WlanAPI.connect(ssid, {"password": password})
+
+
+func _on_password_window_visibility_changed() -> void:
+	if password_window.is_visible():
+		connect_button.set_disabled(true)
+	else:
+		connect_button.set_disabled(false)

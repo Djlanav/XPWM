@@ -27,6 +27,7 @@ var full_bars := preload("uid://c7hb0lggsp1fx")
 
 var focused: bool = false
 var connected: bool
+var connecting: bool
 var shader_material: ShaderMaterial
 
 
@@ -89,12 +90,12 @@ func check_security(is_secure: bool) -> void:
 
 
 func set_connected() -> void:
+	connecting = false
 	connected = true
-	connected_star.show()
+	show_connection_status()
 	
 	connection_status.set_text("Connected")
 	connection_status.set_position(Vector2(415.0, 2.0))
-	connection_status.show()
 	
 	connected_already.show()
 	connect_ready.hide()
@@ -102,15 +103,15 @@ func set_connected() -> void:
 
 func set_disconnected() -> void:
 	connected = false
-	connected_star.hide()
-	#print_debug("STATUS HIDDEN")
-	connection_status.hide()
+	hide_connection_status()
 	
 	connect_ready.show()
 	connected_already.hide()
 
 
 func set_acquiring() -> void:
+	connecting = true
+	
 	connection_status.set_text("Acquiring network address")
 	connection_status.set_position(Vector2(370.0, 2.0))
 	connection_status.show()
@@ -172,6 +173,12 @@ func _on_began_connecting(ssid: String) -> void:
 	if self.get_ssid() == ssid:
 		connection_status.set_text("Not Connected")
 		connection_status.show()
+		connecting = true
+
+
+func _on_connection_aborted() -> void:
+	connecting = false
+	hide_connection_status()
 
 
 func _on_disconnect() -> void:
