@@ -11,8 +11,8 @@ enum ConnectivityStatus {
 }
 
 
-signal connection_status_updated(status: ConnectivityStatus)
 signal began_connecting(connecting_ssid: String)
+signal request_password(connecting_ssid: String)
 
 
 @onready var networks_list: VBoxContainer = %NetworksContainer
@@ -22,6 +22,10 @@ signal began_connecting(connecting_ssid: String)
 @onready var scroll_container: ScrollContainer = %ScrollContainer
 @onready var connect_button: Button = $WifiList/Connect
 @onready var password_window: PasswordWindow = %PasswordWindow
+@onready var connection_timer: Timer = $ConnectionTimer
+
+
+@export_multiline var profiles_found_warning: String
 
 
 var wifi_entry_scene := preload("uid://bhaepryhfj0y6")
@@ -35,6 +39,7 @@ func _ready() -> void:
 	get_viewport().get_window().title = "Wireless Network Connection"
 	
 	WlanAPI.network_data_fetched.connect(_on_wlan_api_network_data_fetched)
+	WlanAPI.windows_profiles_found.connect(_on_windows_profiles_found)
 	
 	var networks = networks_list.get_children()
 	for network in networks:
@@ -45,29 +50,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	var connection_status: Variant = WlanAPI.poll_connection_status()
-	if connection_status != null:
-		match_status(connection_status)
-	
+	WlanAPI.poll_connection_status()
 	if networks_list.get_child_count() >= 7:
 		scroll_bar.show()
 		scroll_container.set_deferred("scroll_vertical", scroll_bar.get_value())
 	else:
+		pass
 		scroll_bar.hide()
-
-
-func match_status(connection_status: String) -> void:
-	match connection_status:
-		"ConnectionStart":
-			connection_status_updated.emit(ConnectivityStatus.ConnectionStart)
-		"ConnectionComplete":
-			connection_status_updated.emit(ConnectivityStatus.ConnectionComplete)
-		"ConnectionAttemptFail":
-			connection_status_updated.emit(ConnectivityStatus.ConnectionAttemptFail)
-		"Disconnected":
-			connection_status_updated.emit(ConnectivityStatus.Disconnected)
-		"Unknown":
-			connection_status_updated.emit(ConnectivityStatus.Unknown)
 
 
 func refresh(run_timer: bool) -> void:
@@ -103,7 +92,6 @@ func _on_wlan_api_network_data_fetched() -> void:
 		wifi_entry.check_security(network.secured)
 		wifi_entry.set_signal_strength(network.bars)
 		
-		connection_status_updated.connect(wifi_entry._on_connection_status_updated)
 		began_connecting.connect(wifi_entry._on_began_connecting)
 		password_window.connection_aborted.connect(wifi_entry._on_connection_aborted)
 		
@@ -135,11 +123,22 @@ func _on_connect_pressed() -> void:
 			WlanAPI.disconnect()
 		else:
 			var ssid = wifi_entry.get_ssid()
-			began_connecting.emit(ssid)
+			if not WlanAPI.check_for_matching_profile(ssid):
+				request_password.emit(ssid)
+			else:
+				connect_to_network(ssid)
 
 
-func _on_password_window_credentials_provided(ssid: String, password: Variant) -> void:
-	WlanAPI.connect(ssid, {"password": password})
+func _on_password_window_credentials_provided(ssid: String, password: String) -> void:
+	WlanAPI.generate_profile(ssid, password)
+	connect_to_network(ssid)
+
+
+func connect_to_network(ssid: String) -> void:
+	connection_timer.start()
+	await connection_timer.timeout
+	
+	WlanAPI.connect(ssid)
 
 
 func _on_password_window_visibility_changed() -> void:
@@ -147,3 +146,14 @@ func _on_password_window_visibility_changed() -> void:
 		connect_button.set_disabled(true)
 	else:
 		connect_button.set_disabled(false)
+
+
+func _on_windows_profiles_found(ssid: String) -> void:
+	if Win32API.show_yes_no_warning("Windows Profiles Found", profiles_found_warning):
+		#WlanAPI.delete_profile(ssid)
+		pass
+
+
+#func _on_testxmlbutton_pressed() -> void:
+	#WlanAPI.test_xml_data("Linksys77")
+	#WlanAPI.generate_profile("Linksys77", "Baspios377")

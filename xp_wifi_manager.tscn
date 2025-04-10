@@ -86,6 +86,11 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 script = ExtResource("1_af6vm")
+profiles_found_warning = "Windows profiles were found to be present on the system. It is recommened that you allow the app to delete these profiles to make room for new profiles tailored to this app. You will be disconnected. Proceed?"
+
+[node name="ConnectionTimer" type="Timer" parent="."]
+wait_time = 8.0
+one_shot = true
 
 [node name="PasswordLayer" type="CanvasLayer" parent="."]
 
@@ -135,6 +140,8 @@ theme_override_icons/increment = ExtResource("3_nyt5l")
 theme_override_icons/decrement = ExtResource("4_clcl5")
 theme_override_styles/scroll = SubResource("StyleBoxFlat_nyt5l")
 theme_override_styles/grabber = SubResource("StyleBoxTexture_clcl5")
+max_value = 250.0
+allow_greater = true
 
 [node name="ScrollContainer" type="ScrollContainer" parent="WifiList"]
 unique_name_in_owner = true
@@ -268,9 +275,17 @@ offset_top = 167.0
 offset_right = 23.0
 offset_bottom = 167.0
 
-[connection signal="began_connecting" from="." to="PasswordLayer/PasswordWindow" method="_on_xp_wifi_manager_began_connecting"]
+[node name="TESTXMLBUTTON" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 417.0
+offset_top = 550.0
+offset_right = 505.0
+offset_bottom = 573.0
+text = "TEST XML DATA"
+
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
-[connection signal="connection_status_updated" from="." to="WifiList/Connect" method="_on_xp_wifi_manager_connection_status_updated"]
+[connection signal="request_password" from="." to="PasswordLayer/PasswordWindow" method="_on_xp_wifi_manager_request_password"]
 [connection signal="credentials_provided" from="PasswordLayer/PasswordWindow" to="." method="_on_password_window_credentials_provided"]
 [connection signal="visibility_changed" from="PasswordLayer/PasswordWindow" to="." method="_on_password_window_visibility_changed"]
 [connection signal="pressed" from="WifiList/Connect" to="." method="_on_connect_pressed"]

@@ -32,6 +32,10 @@ var shader_material: ShaderMaterial
 
 
 func _ready() -> void:
+	WlanAPI.connection_start.connect(_on_wlan_connection_start)
+	WlanAPI.connection_complete.connect(_on_wlan_connection_complete)
+	WlanAPI.disconnected.connect(_on_wlan_disconnect)
+	
 	shader_material = get_material()
 	shader_material.set_shader_parameter("top_color", Color(0.770548, 0.831494, 0.963489, 1))
 	shader_material.set_shader_parameter("bottom_color", Color(0.4, 0.537255, 0.866667, 1))
@@ -145,28 +149,16 @@ func set_signal_strength(bars: int) -> void:
 			
 
 
-func _on_connection_status_updated(status: XPWifiManager.ConnectivityStatus) -> void:
+func get_selected_ssid() -> String:
 	var entry := Globals.get_selected_network()
 	var selected_ssid: String
 	
 	if is_instance_valid(entry):
 		selected_ssid = entry.get_ssid()
 	else:
-		return
+		return ""
 	
-	match status:
-		XPWifiManager.ConnectivityStatus.ConnectionStart:
-			if selected_ssid != get_ssid():
-				return
-			set_acquiring()
-		XPWifiManager.ConnectivityStatus.ConnectionComplete:
-			if selected_ssid != get_ssid():
-				return
-			set_connected()
-		XPWifiManager.ConnectivityStatus.Disconnected:
-			if selected_ssid != get_ssid():
-				return
-			set_disconnected()
+	return selected_ssid
 
 
 func _on_began_connecting(ssid: String) -> void:
@@ -181,8 +173,27 @@ func _on_connection_aborted() -> void:
 	hide_connection_status()
 
 
-func _on_disconnect() -> void:
-	pass
+func _on_wlan_connection_start() -> void:
+	var selected_ssid = get_selected_ssid()
+	if selected_ssid.is_empty() or selected_ssid != get_ssid():
+		return
+	
+	set_acquiring()
+
+
+func _on_wlan_connection_complete() -> void:
+	var selected_ssid = get_selected_ssid()
+	if selected_ssid.is_empty() or selected_ssid != get_ssid():
+		return
+	
+	set_connected()
+
+func _on_wlan_disconnect() -> void:
+	var selected_ssid = get_selected_ssid()
+	if selected_ssid.is_empty() or selected_ssid != get_ssid():
+		return
+	
+	set_disconnected()
 
 
 func _on_mouse_entered() -> void:

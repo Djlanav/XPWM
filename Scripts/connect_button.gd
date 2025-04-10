@@ -1,12 +1,19 @@
 extends Button
 
 
-func _on_xp_wifi_manager_connection_status_updated(status: XPWifiManager.ConnectivityStatus) -> void:
+func _ready() -> void:
+	WlanAPI.disconnected.connect(_on_wlan_disconnected)
+	WlanAPI.connection_complete.connect(_on_wlan_connection_complete)
+
+
+func _on_wlan_disconnected() -> void:
+	set_text("Connect")
+
+
+func _on_wlan_connection_complete() -> void:
 	var wifi_entry := Globals.get_selected_network()
-	if is_instance_valid(wifi_entry):
-		match status:
-			XPWifiManager.ConnectivityStatus.Disconnected:
-				set_text("Connect")
-			XPWifiManager.ConnectivityStatus.ConnectionComplete:
-				if wifi_entry.connecting:
-					set_text("Disconnect")
+	if not is_instance_valid(wifi_entry):
+		return
+	
+	if wifi_entry.connecting:
+		set_text("Disconnect")
