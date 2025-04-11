@@ -41,6 +41,9 @@ func _ready() -> void:
 	WlanAPI.network_data_fetched.connect(_on_wlan_api_network_data_fetched)
 	WlanAPI.windows_profiles_found.connect(_on_windows_profiles_found)
 	
+	WlanAPI.initialize_network_manager()
+	WlanAPI.check_for_windows_profiles()
+	
 	var networks = networks_list.get_children()
 	for network in networks:
 		network.queue_free()
@@ -135,8 +138,8 @@ func _on_password_window_credentials_provided(ssid: String, password: String) ->
 
 
 func connect_to_network(ssid: String) -> void:
-	connection_timer.start()
-	await connection_timer.timeout
+	#connection_timer.start()
+	#await connection_timer.timeout
 	
 	WlanAPI.connect(ssid)
 
@@ -150,8 +153,7 @@ func _on_password_window_visibility_changed() -> void:
 
 func _on_windows_profiles_found(ssid: String) -> void:
 	if Win32API.show_yes_no_warning("Windows Profiles Found", profiles_found_warning):
-		#WlanAPI.delete_profile(ssid)
-		pass
+		WlanAPI.delete_profile(ssid)
 
 
 #func _on_testxmlbutton_pressed() -> void:

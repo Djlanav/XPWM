@@ -10,15 +10,15 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_upojo"]
 shader = ExtResource("2_mmt3q")
 shader_parameter/top_color = Color(1, 1, 1, 1)
-shader_parameter/bottom_color = Color(0.584314, 0.741176, 0.894118, 1)
+shader_parameter/bottom_color = Color(0.746352, 0.843775, 0.940362, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uds7w"]
-corner_radius_top_left = 2
-corner_radius_top_right = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
 anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upojo"]
-bg_color = Color(0.701961, 0.815686, 0.92549, 1)
+bg_color = Color(0.866667, 0.905882, 1, 1)
 border_width_left = 1
 border_width_right = 1
 border_width_bottom = 1
